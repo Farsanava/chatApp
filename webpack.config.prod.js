@@ -41,6 +41,7 @@ module.exports = webpackMerge.smart(commonConfig, {
     }),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false
+            
         })
     ]
 });
