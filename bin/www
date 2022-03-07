@@ -32,8 +32,8 @@ io.on('connection',(socket)=>{
       //joining
       socket.join(data.room);
 
-      console.log(data.user + 'joined the room : ' + data.room);
-
+      console.log(data.user + ' joined the room : ' + data.room);
+      
       socket.broadcast.to(data.room).emit('new user joined', {user:data.user, message:'has joined this room.'});
     });
 

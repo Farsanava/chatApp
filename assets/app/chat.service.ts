@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as io from 'socket.io-client';
+import Swal from "sweetalert2";
+import swal from "sweetalert";
 import {Observable} from 'rxjs/Observable';
 
 
@@ -19,14 +21,25 @@ export class ChatService{
 
     newUserJoined()
     {
-        let observable = new Observable<{user:String, message:String}>(observer=>{
+        let observable = new Observable<{user:String, message:String}>(observer=>{         
             this.socket.on('new user joined', (data)=>{
-                observer.next(data);
+                console.log(data.user);
+                
+                Swal.fire({
+                    title: `${data.user} is requested to Join`,
+                    showConfirmButton:true,
+                    confirmButtonText:"proceed",
+                  }).then(datas=> {
+                    observer.next(data);
+                  })
+                     
             });
             return () => {this.socket.disconnect();}
         });
 
+
         return observable;
+       
     }
 
     leaveRoom(data){
